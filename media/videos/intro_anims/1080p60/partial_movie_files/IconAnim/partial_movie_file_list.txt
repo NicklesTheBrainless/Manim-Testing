@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/morga/PycharmProjects/Manim-Testing/media/videos/intro_anims/1080p60/partial_movie_files/IconAnim/3529212410_3680662306_223132457.mp4'
-file 'file:C:/Users/morga/PycharmProjects/Manim-Testing/media/videos/intro_anims/1080p60/partial_movie_files/IconAnim/3040924799_3101590718_351947659.mp4'
-file 'file:C:/Users/morga/PycharmProjects/Manim-Testing/media/videos/intro_anims/1080p60/partial_movie_files/IconAnim/3040924799_1734327179_2812093664.mp4'
