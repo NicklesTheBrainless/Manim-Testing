@@ -28,11 +28,13 @@ class IconAnim(Scene):
         shifted_right_part = right_part.copy().shift(LEFT * 3.5)
 
         # state 2: merge
-        merged_hexagon = RegularPolygon(6, radius=2, stroke_color=WHITE, fill_color=TEAL, fill_opacity=0.50)
+        merged_hexagon = RegularPolygon(6, radius=2, stroke_color=WHITE, fill_color=TEAL, fill_opacity=0.85)
         merged_text = Text("Nickless", font=font)
         fancy_tex_up = Tex(r"$\sum\limits_{i=0}^{\infty}$ stupidity").move_to(UP * 0.9).scale(0.6)
         fancy_tex_down = Tex(r"\[ \lim_{x\to\infty} nonsense \]").move_to(DOWN * 0.9).scale(0.6)
         merged_part = VGroup(merged_hexagon, merged_text, fancy_tex_up, fancy_tex_down)
+
+        switched_text = Text("less Nick", font=font)
 
         self.play(Create(left_intersect,  run_time=creation_time),    Create(left_text,  run_time=creation_time),
                         Create(right_intersect, run_time=creation_time),    Create(right_text, run_time=creation_time))
@@ -41,15 +43,20 @@ class IconAnim(Scene):
                         Transform(right_part, shifted_right_part, run_time=shift_time, rate_func=rate_functions.ease_in_quint))
 
         self.play(Transform(left_part, merged_part, run_time=merge_time), Transform(right_part, merged_part, run_time=merge_time))
+        self.add(merged_part)
+        self.remove(left_part, right_part)
+        self.wait(0.6)
+        self.play(merged_text.animate.flip(axis=Y_AXIS), Transform(merged_text, switched_text))
+        self.wait(1)
 
 
 class QuoteAnim(Scene):
     def construct(self):
 
-        quote_str = " \"Infinity might be big, very big, unbelievable big. \n But actually, the truth is that size doesn't matter.\" "
+        quote_str = f" \"Infinity might be big, very big, unbelievable big. \n But actually, the truth is that <span fgcolor=\"{BLUE}\">size doesn't matter.\" </span> "
         quoted_person_str = "-Nickless"
 
-        quote_text = Text(quote_str, font_size=36).move_to(UP * 2.75)
+        quote_text = MarkupText(quote_str, font_size=36).move_to(UP * 2.75)
         quoted_person_text = Text(quoted_person_str, font_size=36, color=YELLOW).move_to(UP * 1.5)
 
         self.play(FadeIn(quote_text, lag_ratio=0.175, rate_func=linear, run_time=5))
@@ -58,11 +65,10 @@ class QuoteAnim(Scene):
 class Intro(Scene):
     def construct(self):
 
-        self.wait(0.2)
         self.add_sound("assets/sounds/grant_opus.mp3")
+        self.wait(0.4)
 
         IconAnim.construct(self)
-        self.wait(1.4)
         self.clear()
         QuoteAnim.construct(self)
         self.wait(3)
